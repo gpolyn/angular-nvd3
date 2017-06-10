@@ -66,7 +66,7 @@ export class PieComponent implements OnInit, OnDestroy {
 							.labelThreshold(0.01)
 							.legendPosition('top')
 							.labelSunbeamLayout(true);
-          promisedData.then( data => {
+          const nextPromise = promisedData.then( data => {
             this.d3Svg
                 .datum(data)
                 .call(chart);
@@ -76,8 +76,10 @@ export class PieComponent implements OnInit, OnDestroy {
 							.datum(pieChartData)
 							.call(chart);
           */
-					nv.utils.windowResize(chart.update);
-					return chart;
+          nextPromise.then(() => {
+            nv.utils.windowResize(chart.update);
+            return chart;
+          });
 			});
 		}
 
