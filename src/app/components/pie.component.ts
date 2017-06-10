@@ -1,6 +1,6 @@
 import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { D3Service, D3, Selection } from 'd3-ng2-service';
-import { Http, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -44,7 +44,10 @@ export class PieComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const promisedData = this.http.get(this.API_URL)
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    const url = '/api/getdata';
+    const promisedData = this.http.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData);
 
