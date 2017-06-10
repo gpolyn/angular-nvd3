@@ -10,6 +10,7 @@ import { SwitchesComponent } from './switches.component';
 import { TablesComponent } from './tables.component';
 import { TabsComponent } from './tabs.component';
 import { PieComponent } from './pie.component';
+import { VoronoiSpirals3Component } from './voronoi-spirals-3.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,13 @@ const routes: Routes = [
         component: PieComponent,
         data: {
           title: 'Pie Chart'
+        }
+      },
+      {
+        path: 'voronoi',
+        component: VoronoiSpirals3Component,
+        data: {
+          title: 'Voronoi'
         }
       },
       {

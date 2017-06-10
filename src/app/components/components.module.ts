@@ -22,6 +22,7 @@ import { TabsComponent } from './tabs.component';
 // Components Routing
 import { ComponentsRoutingModule } from './components-routing.module';
 import { PieComponent } from './pie.component';
+import { VoronoiSpirals3Component } from './voronoi-spirals-3.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { PieComponent } from './pie.component';
     SwitchesComponent,
     TablesComponent,
     TabsComponent,
+    VoronoiSpirals3Component,
     PieComponent
   ]
 })
