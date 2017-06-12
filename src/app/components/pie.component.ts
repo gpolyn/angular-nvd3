@@ -46,7 +46,7 @@ export class PieComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    const url = '/api/getdata';
+    const url = 'http://localhost/api/getdata'; // add some dev/prod distinction
     const promisedData = this.http.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData);
