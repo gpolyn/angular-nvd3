@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +9,8 @@ export class FullLayoutComponent implements OnInit {
 
   public disabled = false;
   public status: {isopen: boolean} = {isopen: false};
+
+  constructor(public authService: AuthService) { }
 
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../auth/auth-guard.service';
 
 import { ButtonsComponent } from './buttons.component';
 import { CardsComponent } from './cards.component';
@@ -20,6 +21,7 @@ import { StackedAreaChartComponent } from './stacked-area-chart/stacked-area-cha
 const routes: Routes = [
   {
     path: '',
+		canActivate: [AuthGuardService],
     data: {
       title: 'Components'
     },
