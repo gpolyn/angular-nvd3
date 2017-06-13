@@ -3,9 +3,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
-const APP_SERVER = 'http://localhost/';
+const APP_SERVER = environment.url_base_path;
 const USERNAME = 'user';
 const PASSWORD = 'password';
 
@@ -42,36 +44,31 @@ export class AuthService {
       );
   }
 
-  login() {
+  login(userData?: any): Promise<boolean> {
     let options: RequestOptions = new RequestOptions({
       headers: new Headers({ 'Content-Type': 'application/json' })
     });
-    this.messages.push('Logging in');
+    return new Promise( (res, fail) => {
     this.http
-      .post(APP_SERVER + 'auth',
-      JSON.stringify({ 'username': USERNAME, 'password': PASSWORD }),
-      options)
+      .post(APP_SERVER + 'auth', JSON.stringify(userData), options)
       .map((response: Response) => response.json())
       .subscribe(
-      (data) => {
-        // save the token in local storage
-        let token = data.access_token;
-        // localStorage.setItem('id_token', token);
-				this._setSession({idToken: token})
-        this.messages.push(`Login successful, token saved.`);
- 
-        let jwtHelper: JwtHelper = new JwtHelper();
-        this.messages.push(`expiration: ${jwtHelper.getTokenExpirationDate(token)}`);
-        this.messages.push(`is expired: ${jwtHelper.isTokenExpired(token)}`);
-        this.messages.push(`decoded: ${JSON.stringify(jwtHelper.decodeToken(token))}`);
- 
-        // now get the protected resource
-        this.getProtected();
-      },
-      (error) => {
-        this.messages.push(`Login failed: ${error}`);
-      }
+        (data) => {
+          // save the token in local storage
+          let token = data.access_token;
+          this._setSession({idToken: token})
+          let redirect = this.redirectUrl ? this.redirectUrl : '/';
+          this.getProtected();
+          this.router.navigate([redirect]);
+          res(true);
+        },
+        (error) => {
+          console.log('login failure', error)
+          this.messages.push(`Login failed: ${error}`);
+          fail(true);
+        }
       );
+    });
   }
 
   getProtected() {
@@ -106,10 +103,13 @@ export class AuthService {
     // To log out, just remove the token 
     // from local storage
     localStorage.removeItem('id_token');
+    let redirect = this.redirectUrl ? this.redirectUrl : '/';
+    console.log('redirect', this.router.url );
+		this.setLoggedIn(false);
+    this.router.navigate([this.router.url]);
 
     // Send the user back to the dashboard after logout
-    this.router.navigateByUrl('/pages/login');
-		this.setLoggedIn(false);
+    // this.router.navigateByUrl('/pages/login');
   }
 
   get authenticated() {

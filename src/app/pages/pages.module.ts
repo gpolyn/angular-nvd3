@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { P404Component } from './404.component';
 import { P500Component } from './500.component';
@@ -9,7 +11,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { Nvd3Test2Component } from './nvd3-test-2/nvd3-test-2.component';
 
 @NgModule({
-  imports: [ PagesRoutingModule ],
+  imports: [ PagesRoutingModule, CommonModule, FormsModule ],
   declarations: [
     P404Component,
     P500Component,

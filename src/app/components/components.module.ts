@@ -10,6 +10,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SocialButtonsComponent } from './social-buttons.component';
 import { SwitchesComponent } from './switches.component';
 import { TablesComponent } from './tables.component';
+import { environment } from '../../environments/environment';
+export let BASE_URL = environment.url_base_path;
 
 // Modal Component
 import { ModalModule } from 'ngx-bootstrap/modal';

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { AuthModule } from './auth/auth.module';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -26,6 +26,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 @NgModule({
   imports: [
     BrowserModule,
+    CommonModule,
     AuthModule,
     HttpModule,
     AppRoutingModule,

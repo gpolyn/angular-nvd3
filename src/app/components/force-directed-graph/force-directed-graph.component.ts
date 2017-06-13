@@ -4,6 +4,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { BASE_URL } from '../components.module';
 
 declare var nv: any;
 
@@ -51,7 +52,7 @@ export class ForceDirectedGraphComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    const url = 'http://localhost/api/getdata'; // add some dev/prod distinction
+    const url = BASE_URL + 'api/getdata'; 
     const promisedData = this.http.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData);
@@ -88,6 +89,9 @@ export class ForceDirectedGraphComponent implements OnInit, OnDestroy {
               })
               .margin({top: 20, right: 20, bottom: 20, left: 20})
 							.height(500);
+          promisedData.then( data => {
+            console.log('result', data);
+          });
           /*
           const nextPromise = promisedData.then( data => {
             this.d3Svg
