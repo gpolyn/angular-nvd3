@@ -6,7 +6,8 @@ import { AuthGuardService } from './auth-guard.service';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
-      headerPrefix: 'JWT'
+    headerPrefix: 'JWT',
+    tokenName: 'id_token'
     }), http, options);
   }
 

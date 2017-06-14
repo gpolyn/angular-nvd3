@@ -1,6 +1,7 @@
 import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { D3Service, D3, Selection } from 'd3-ng2-service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -33,9 +34,14 @@ export class PieComponent implements OnInit, OnDestroy {
   private parentNativeElement: any;
   readonly API_URL = 'http://localhost:8000/api';
 
-  constructor(private http: Http, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
-    this.d3 = d3Service.getD3();
-    this.parentNativeElement = element.nativeElement;
+  constructor(
+    private http: Http, 
+    private authHttp:AuthHttp,
+    element: ElementRef, 
+    private ngZone: NgZone, 
+    d3Service: D3Service) {
+      this.d3 = d3Service.getD3();
+      this.parentNativeElement = element.nativeElement;
   }
 
   ngOnDestroy() {
@@ -47,8 +53,8 @@ export class PieComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    const url = BASE_URL + 'api/getdata'; 
-    const promisedData = this.http.post(url, '', options)
+    const url = BASE_URL + 'api/pie'; 
+    const promisedData = this.authHttp.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData);
 
@@ -60,6 +66,10 @@ export class PieComponent implements OnInit, OnDestroy {
     if (this.parentNativeElement !== null) {
       d3ParentElement = d3.select(this.parentNativeElement);
       this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg');
+      /*  
+      console.log('d3Svg', this.d3Svg);
+      console.log('d3Svg', this.d3Svg);
+      */
 			nv.addGraph(() => {
 					const chart = nv.models.pieChart()
 							.x(function(d) { return d.key })

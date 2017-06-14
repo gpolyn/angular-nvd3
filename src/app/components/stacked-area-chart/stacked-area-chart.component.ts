@@ -46,7 +46,7 @@ export class StackedAreaChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    const url = BASE_URL + 'api/getdata'; 
+    const url = BASE_URL + 'api/stacked_area'; 
     const promisedData = this.http.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData);

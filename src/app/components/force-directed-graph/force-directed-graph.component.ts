@@ -52,7 +52,7 @@ export class ForceDirectedGraphComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    const url = BASE_URL + 'api/getdata'; 
+    const url = BASE_URL + 'api/force_directed'; 
     const promisedData = this.http.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData);
@@ -89,32 +89,28 @@ export class ForceDirectedGraphComponent implements OnInit, OnDestroy {
               })
               .margin({top: 20, right: 20, bottom: 20, left: 20})
 							.height(500);
-          promisedData.then( data => {
-            console.log('result', data);
-          });
-          /*
+
           const nextPromise = promisedData.then( data => {
             this.d3Svg
                 .datum(data)
                 .call(chart);
           });
+          /*
           const nextPromise = Promise.resolve(()=>{
 						this.d3Svg
 								.datum(pieChartData)
 								.call(chart);
 					})
-          */
 						this.d3Svg
 								.datum(pieChartData)
 								.call(chart);
             nv.utils.windowResize(chart.update);
             return chart;
-/*
+          */
           nextPromise.then(() => {
             nv.utils.windowResize(chart.update);
             return chart;
           });
-*/
 			});
 		}
 
