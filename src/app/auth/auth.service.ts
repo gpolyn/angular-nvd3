@@ -106,7 +106,7 @@ export class AuthService {
     let redirect = this.redirectUrl ? this.redirectUrl : '/';
     console.log('redirect', this.router.url );
 		this.setLoggedIn(false);
-    this.router.navigate([this.router.url]);
+    this.router.navigate(['/pages/404']);
 
     // Send the user back to the dashboard after logout
     // this.router.navigateByUrl('/pages/login');

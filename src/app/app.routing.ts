@@ -23,7 +23,7 @@ export const routes: Routes = [
         loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {
-        path: 'components',
+        path: 'nvd3',
         loadChildren: './components/components.module#ComponentsModule'
       },
       {

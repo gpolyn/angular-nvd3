@@ -1,4 +1,5 @@
 import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
 import { D3Service, D3, Selection, ScaleOrdinal } from 'd3-ng2-service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -32,7 +33,7 @@ export class StackedAreaChartComponent implements OnInit, OnDestroy {
 	private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
-  constructor(private http: Http, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
+  constructor(private http: AuthHttp, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
     this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
   }

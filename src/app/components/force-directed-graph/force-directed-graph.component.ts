@@ -1,6 +1,7 @@
 import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { D3Service, D3, Selection, ScaleOrdinal } from 'd3-ng2-service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -38,7 +39,7 @@ export class ForceDirectedGraphComponent implements OnInit, OnDestroy {
 	private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
-  constructor(private http: Http, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
+  constructor(private http: AuthHttp, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
     this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
   }
@@ -69,13 +70,12 @@ export class ForceDirectedGraphComponent implements OnInit, OnDestroy {
       d3ParentElement = d3.select(this.parentNativeElement);
       let color = d3.scaleOrdinal<number, string>(d3.schemeCategory20);
       this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg');
+      console.log('svg', this.d3Svg.property('width'))
+      console.log('svg', this.d3Svg.property('height'))
 			nv.addGraph(() => {
 					const chart = nv.models.forceDirectedGraph()
-							/*	
-              .width(()=>{
-                return nv.utils.windowSize().width;
-              })
-							*/
+              .width(200)
+              .height(200)
               .nodeExtras((node)=>{
 								node && node
 										.append("text")
