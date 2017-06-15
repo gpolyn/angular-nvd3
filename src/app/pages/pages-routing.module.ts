@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { P404Component } from './404.component';
 import { P500Component } from './500.component';
 import { LoginComponent } from './login.component';
-import { RegisterComponent } from './register.component';
-import { Nvd3Test2Component } from './nvd3-test-2/nvd3-test-2.component';
 
 const routes: Routes = [
   {
@@ -15,38 +13,10 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '404',
-        component: P404Component,
-        data: {
-          title: 'Page 404'
-        }
-      },
-      {
-        path: '500',
-        component: P500Component,
-        data: {
-          title: 'Page 500'
-        }
-      },
-      {
         path: 'login',
         component: LoginComponent,
         data: {
           title: 'Login Page'
-        }
-      },
-      {
-        path: 'register',
-        component: RegisterComponent,
-        data: {
-          title: 'Register Page'
-        }
-      },
-      {
-        path: 'nvd3',
-        component: Nvd3Test2Component,
-        data: {
-          title: 'NVD3 Test'
         }
       }
     ]
