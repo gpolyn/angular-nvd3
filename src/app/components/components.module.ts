@@ -10,7 +10,9 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { OhlcBarChartComponent } from './ohlc-bar-chart/ohlc-bar-chart.component';
 import { StackedAreaChartComponent } from './stacked-area-chart/stacked-area-chart.component';
 import { CumulativeLineComponent } from './cumulative-line/cumulative-line.component';
+import { ForceDirectedGraphComponent } from './force-directed-graph/force-directed-graph.component';
 import { WidgetsComponent } from './widgets.component';
+import { VoronoiSpirals3Component } from './voronoi-spirals-3.component';
 import { HomeComponent } from './home/home.component'
 
 @NgModule({
@@ -25,6 +27,8 @@ import { HomeComponent } from './home/home.component'
     OhlcBarChartComponent,
     StackedAreaChartComponent,
     CumulativeLineComponent,
+    ForceDirectedGraphComponent,
+    VoronoiSpirals3Component,
     HomeComponent
   ]
 })
