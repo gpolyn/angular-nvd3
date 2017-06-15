@@ -24,7 +24,7 @@ export const routes: Routes = [
         loadChildren: './components/components.module#ComponentsModule'
       },
       {
-        path: 'charts',
+        path: 'chart-js',
         loadChildren: './chartjs/chartjs.module#ChartJSModule'
       }
     ]
