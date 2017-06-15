@@ -1,11 +1,53 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+const style = `
+
+  a.card:hover {
+    text-decoration: none !important;
+  }
+
+  a.card:hover .bg-info
+  {
+		background-color: #2694b5 !important;
+	}
+
+  a.card:hover .text-info,
+  a.card:hover .text-muted
+  {
+		color: #2694b5 !important;
+	}
+
+  a.card:hover .bg-warning
+  {
+		background-color: #927700 !important;
+	}
+
+  a.card:hover .text-warning,
+  a.card:hover .text-warning > .fa-chain
+  {
+		color: #927700 !important;
+	}
+
+  a.card:hover .bg-danger
+  {
+		background-color: #f20d0b !important;
+	}
+
+  a.card:hover .text-danger,
+  a.card:hover .text-danger > .fa-chain
+  {
+		color: #f20d0b !important;
+	}
+`;
 
 @Component({
-  templateUrl: 'widgets.component.html'
+  templateUrl: 'widgets.component.html',
+  styles: [style]
 })
 export class WidgetsComponent {
 
-  constructor() { }
+  constructor(public route: ActivatedRoute, public router: Router) { }
 
   public brandPrimary = '#20a8d8';
   public brandSuccess = '#4dbd74';
@@ -23,6 +65,10 @@ export class WidgetsComponent {
   //   let rgba = 'rgba('+r+','+g+','+b+','+opacity/100+')';
   //   return rgba;
   // }
+
+  public linkClicked(e: any){
+    console.log('link clicked', e);
+  }
 
   // events
   public chartClicked(e: any): void {

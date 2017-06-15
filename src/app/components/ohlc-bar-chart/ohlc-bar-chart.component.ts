@@ -3,6 +3,7 @@ import { D3Service, D3, Selection, ScaleOrdinal } from 'd3-ng2-service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { BASE_URL } from '../components.module';
@@ -33,7 +34,7 @@ export class OhlcBarChartComponent implements OnInit, OnDestroy {
 	private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
-  constructor(private http: AuthHttp, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
+  constructor(private http: AuthHttp, element: ElementRef, private ngZone: NgZone, d3Service: D3Service, private router: Router) {
     this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
   }
@@ -50,7 +51,10 @@ export class OhlcBarChartComponent implements OnInit, OnDestroy {
     const url = BASE_URL + 'api/ohlc_bar'; 
     const promisedData = this.http.post(url, '', options)
                                   .toPromise()
-                                  .then(this.extractData);
+                                  .then(this.extractData)
+                                  .catch( err => {
+                                    this.router.navigateByUrl('/pages/login');
+                                  })
 
 		const pieChartData = this.ohlcBarChart();
 

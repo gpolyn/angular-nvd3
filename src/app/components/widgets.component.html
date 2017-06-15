@@ -1,0 +1,59 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-6 col-lg-3">
+      <a class="card" [routerLink]="['/nvd3/line-chart']">
+        <div class="card-block p-3 clearfix">
+          <i class="fa icon-graph bg-info p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-info mb-0 mt-2">Line Chart&nbsp; <i class="fa fa-chain font-lg text-muted text-uppercase font-weight-bold font-xs"></i></div>
+        </div>
+      </a>
+    </div>
+    <!--/.col-->
+    <div class="col-6 col-lg-3">
+      <a class="card" [routerLink]="['/nvd3/cumulative-line']">
+        <div class="card-block p-3 clearfix">
+          <i class="fa icon-graph bg-info p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-info mb-0 mt-2">Cumulative Line Chart&nbsp; <i class="fa fa-chain font-lg text-muted text-uppercase font-weight-bold font-xs"></i></div>
+        </div>
+      </a>
+    </div>
+    <!--/.col-->
+    <div class="col-6 col-lg-3">
+      <a class="card" [routerLink]="['/nvd3/pie']">
+        <div class="card-block p-3 clearfix">
+          <i class="fa icon-pie-chart bg-warning p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-warning mb-0 mt-2">Pie Chart&nbsp; <i class="fa fa-chain font-lg text-muted text-uppercase font-weight-bold font-xs"></i></div>
+        </div>
+      </a>
+    </div>
+    <!--/.col-->
+    <div class="col-6 col-lg-3">
+      <a class="card" [routerLink]="['/nvd3/stacked-area-chart']">
+        <div class="card-block p-3 clearfix">
+          <i class="fa icon-chart bg-danger p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-danger mb-0 mt-2">Stacked Area Chart&nbsp; <i class="fa fa-chain font-lg text-muted text-uppercase font-weight-bold font-xs"></i></div>
+        </div>
+      </a>
+    </div>
+    <!--/.col-->
+    <div class="col-6 col-lg-3">
+      <a class="card" [routerLink]="['/nvd3/ohlc']">
+        <div class="card-block p-3 clearfix">
+          <i class="fa icon-chart bg-danger p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-danger mb-0 mt-2">OHLC Bar Chart&nbsp; <i class="fa fa-chain font-lg text-muted text-uppercase font-weight-bold font-xs"></i></div>
+        </div>
+      </a>
+    </div>
+    <!--/.col-->
+    <div class="col-6 col-lg-3">
+      <a class="card" [routerLink]="['/nvd3/line-plus-bar-chart']">
+        <div class="card-block p-3 clearfix">
+          <i class="fa icon-graph bg-info p-3 font-2xl mr-3 float-left"></i>
+          <i class="fa icon-chart bg-danger p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-danger mb-0 mt-2">Line Plus Bar Chart&nbsp; <i class="fa fa-chain font-lg text-muted text-uppercase font-weight-bold font-xs"></i></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

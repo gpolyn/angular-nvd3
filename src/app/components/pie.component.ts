@@ -2,6 +2,7 @@ import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core'
 import { D3Service, D3, Selection } from 'd3-ng2-service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -39,6 +40,7 @@ export class PieComponent implements OnInit, OnDestroy {
     private authHttp:AuthHttp,
     element: ElementRef, 
     private ngZone: NgZone, 
+    private router: Router,
     d3Service: D3Service) {
       this.d3 = d3Service.getD3();
       this.parentNativeElement = element.nativeElement;
@@ -56,7 +58,10 @@ export class PieComponent implements OnInit, OnDestroy {
     const url = BASE_URL + 'api/pie'; 
     const promisedData = this.authHttp.post(url, '', options)
                                   .toPromise()
-                                  .then(this.extractData);
+                                  .then(this.extractData)
+                                  .catch( err => {
+                                    this.router.navigateByUrl('/pages/login');
+                                  })
 
 		const pieChartData = this.staticData();
 

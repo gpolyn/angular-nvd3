@@ -1,7 +1,7 @@
 import { Component, ElementRef, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { D3Service, D3, Selection, ScaleOrdinal } from 'd3-ng2-service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
+import { AuthHttp, JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -24,19 +24,21 @@ const style = `
 `;
 
 @Component({
-  selector: 'app-line-plus-bar-chart',
-  templateUrl: './line-plus-bar-chart.component.html',
+  selector: 'app-cumulative-line',
+  templateUrl: './cumulative-line.component.html',
   styles: [style]
 })
-export class LinePlusBarChartComponent implements OnInit, OnDestroy {
+export class CumulativeLineComponent implements OnInit, OnDestroy {
 
   private d3: D3;
 	private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
+  private jwtHelper: any;
 
-  constructor(private http: AuthHttp, element: ElementRef, private ngZone: NgZone, d3Service: D3Service, private router: Router) {
+  constructor(private http: AuthHttp, private router: Router, element: ElementRef, private ngZone: NgZone, d3Service: D3Service) {
     this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
+    this.jwtHelper = new JwtHelper();
   }
 
   ngOnDestroy() {
@@ -48,12 +50,12 @@ export class LinePlusBarChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    const url = BASE_URL + 'api/line_plus_bar'; 
+    const url = BASE_URL + 'api/cumulative_line'; 
     const promisedData = this.http.post(url, '', options)
                                   .toPromise()
                                   .then(this.extractData)
                                   .catch( err => {
-                                    this.router.navigateByUrl('/pages/login');
+                                  this.router.navigate(['/pages/login']);
                                   })
 
 		const pieChartData = this.generateDataMultiBar();
@@ -69,28 +71,6 @@ export class LinePlusBarChartComponent implements OnInit, OnDestroy {
       let color = d3.scaleOrdinal<number, string>(d3.schemeCategory20);
       this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg');
 			nv.addGraph(() => {
-        var chart = nv.models.multiBarChart()
-											.height(450)
-											.margin({
-												top: 20,
-												right: 20,
-												bottom: 45,
-												left: 45
-											})
-											.clipEdge(true)
-											.duration(500)
-											.stacked(true);
-        chart.xAxis.tickFormat(function(d) {
-						return d3.format(',f')(d);
-        });
-				chart.xAxis.axisLabel('Time (ms)');
-				chart.xAxis.showMaxMin(false);
-        chart.yAxis.tickFormat(function(d) {
-						return d3.format(',.1f')(d);
-        });
-				chart.yAxis.axisLabel('Y Axis');
-				chart.yAxis.axisLabelDistance(-20);
-				/*	
         var chart = nv.models.cumulativeLineChart()
             .useInteractiveGuideline(true)
             .x(function(d) { return d[0] })
@@ -103,62 +83,12 @@ export class LinePlusBarChartComponent implements OnInit, OnDestroy {
             return d3.timeFormat('%m/%d/%y')(new Date(d))
         });
         chart.yAxis.tickFormat(d3.format(',.1%'));
-				*/
-					/*
-					const chart = nv.models.linePlusBarChart()
-      .height(500)
-      .margin({
-        top: 30,
-        right: 75,
-        bottom: 50,
-        left: 75
-      })
-      .color(['#2ca02c', 'darkred']);
-			chart.bars.forceY([0]);
-			chart.bars2.forceY([0]);
-
-			chart.xAxis.axisLabel('X Axis');
-			chart.xAxis.tickFormat(function(d) {
-				return d3.timeFormat('%x')(new Date(d))
-			});
-			chart.x2Axis.tickFormat(function(d) {
-					return d3.timeFormat('%x')(new Date(d))
-			}).showMaxMin(false);
-			chart.y1Axis.axisLabel('Y1 Axis');
-			chart.y1Axis.axisLabelDistance(12);
-			chart.y1Axis.tickFormat(function(d){
-          return d3.format(',f')(d);
-      });
-			chart.y2Axis.axisLabel('Y2 Axis');
-			chart.pointSize(0.25);
-			chart.y2Axis.tickFormat(function(d) {
-          return '$' + d3.format(',.2f')(d)
-      });
-			chart.y3Axis.tickFormat(function(d){
-          return d3.format(',f')(d);
-      });
-      chart.y4Axis.tickFormat(function(d) {
-          return '$' + d3.format(',.2f')(d)
-      });
-			*/
 
           const nextPromise = promisedData.then( data => {
             this.d3Svg
                 .datum(data)
                 .call(chart);
           });
-          /*
-          const nextPromise = Promise.resolve(()=>{
-						this.d3Svg
-								.datum(pieChartData)
-								.call(chart);
-					})
-						this.d3Svg
-								.datum(pieChartData)
-								.call(chart);
-            nv.utils.windowResize(chart.update);
-            return chart;
-          */
         nextPromise.then(() => {
           nv.utils.windowResize(chart.update);
           return chart;

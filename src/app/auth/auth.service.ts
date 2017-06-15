@@ -26,24 +26,6 @@ export class AuthService {
     }
   }
 
-  getUnprotected() {
-    console.log('getUnprotected');
-    this.messages.push('Requesting unprotected resource');
-    this.http
-      .get(APP_SERVER + 'unprotected')
-      .map((response: Response) => response.json())
-      .subscribe(
-      (data) => {
-        this.messages.push(`Got unprotected response: ${data.message}`);
- 
-        this.login();
-      },
-      (error) => {
-        this.messages.push(`Unprotected request error: ${error}`);
-      }
-      );
-  }
-
   login(userData?: any): Promise<boolean> {
     let options: RequestOptions = new RequestOptions({
       headers: new Headers({ 'Content-Type': 'application/json' })
@@ -58,7 +40,7 @@ export class AuthService {
           let token = data.access_token;
           this._setSession({idToken: token})
           let redirect = this.redirectUrl ? this.redirectUrl : '/';
-          this.getProtected();
+          // this.getProtected();
           this.router.navigate([redirect]);
           res(true);
         },
@@ -69,22 +51,6 @@ export class AuthService {
         }
       );
     });
-  }
-
-  getProtected() {
-    console.log('getProtected');
-    this.messages.push('Requesting protected resource');
-    this.authHttp
-      .get(APP_SERVER + 'protected')
-      .map((response: Response) => response.json())
-      .subscribe(
-      (data) => {
-        this.messages.push(`Got protected resource: msg: ${data.message}, identity: ${data.current_identity}`);
-      },
-      (error) => {
-        this.messages.push(`Protected request failed: ${error}`);
-      }
-      );
   }
 
   setLoggedIn(value: boolean) {
@@ -103,10 +69,10 @@ export class AuthService {
     // To log out, just remove the token 
     // from local storage
     localStorage.removeItem('id_token');
-    let redirect = this.redirectUrl ? this.redirectUrl : '/';
-    console.log('redirect', this.router.url );
+    // let redirect = this.redirectUrl ? this.redirectUrl : '/';
+    this.redirectUrl = undefined;
 		this.setLoggedIn(false);
-    this.router.navigate(['/pages/404']);
+    this.router.navigate(['/pages/login']);
 
     // Send the user back to the dashboard after logout
     // this.router.navigateByUrl('/pages/login');

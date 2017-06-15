@@ -9,6 +9,9 @@ import { LinePlusBarChartComponent } from './line-plus-bar-chart/line-plus-bar-c
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { OhlcBarChartComponent } from './ohlc-bar-chart/ohlc-bar-chart.component';
 import { StackedAreaChartComponent } from './stacked-area-chart/stacked-area-chart.component';
+import { CumulativeLineComponent } from './cumulative-line/cumulative-line.component';
+import { WidgetsComponent } from './widgets.component';
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
   imports: [
@@ -17,9 +20,12 @@ import { StackedAreaChartComponent } from './stacked-area-chart/stacked-area-cha
   declarations: [
     PieComponent,
     LinePlusBarChartComponent,
+    WidgetsComponent,
     LineChartComponent,
     OhlcBarChartComponent,
-    StackedAreaChartComponent
+    StackedAreaChartComponent,
+    CumulativeLineComponent,
+    HomeComponent
   ]
 })
 export class ComponentsModule { }
