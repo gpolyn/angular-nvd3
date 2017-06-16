@@ -4,7 +4,7 @@ RUN mkdir -p /src
 COPY . /src 
 WORKDIR /src 
 # build and expose the result 
-# RUN npm install webpack-dev-server rimraf webpack typescript -g
+RUN npm install webpack-dev-server rimraf webpack typescript -g
 RUN npm i -g @angular/cli@1.0.4
 RUN npm i 
 RUN npm rebuild node-sass  
