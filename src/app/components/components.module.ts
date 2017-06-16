@@ -13,7 +13,8 @@ import { CumulativeLineComponent } from './cumulative-line/cumulative-line.compo
 import { ForceDirectedGraphComponent } from './force-directed-graph/force-directed-graph.component';
 import { WidgetsComponent } from './widgets.component';
 import { VoronoiSpirals3Component } from './voronoi-spirals-3.component';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { MultiBarHorizontalComponent } from './multi-bar-horizontal/multi-bar-horizontal.component'
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { HomeComponent } from './home/home.component'
     CumulativeLineComponent,
     ForceDirectedGraphComponent,
     VoronoiSpirals3Component,
-    HomeComponent
+    HomeComponent,
+    MultiBarHorizontalComponent
   ]
 })
 export class ComponentsModule { }

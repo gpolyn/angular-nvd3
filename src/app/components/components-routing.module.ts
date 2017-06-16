@@ -11,6 +11,7 @@ import { OhlcBarChartComponent } from './ohlc-bar-chart/ohlc-bar-chart.component
 import { StackedAreaChartComponent } from './stacked-area-chart/stacked-area-chart.component';
 import { CumulativeLineComponent } from './cumulative-line/cumulative-line.component';
 import { HomeComponent } from './home/home.component';
+import { MultiBarHorizontalComponent } from './multi-bar-horizontal/multi-bar-horizontal.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'multi-bar-horizontal',
+        component: MultiBarHorizontalComponent,
+        data: {
+          title: 'Multi-Bar Horizontal'
+        }
+      },
+      {
         path: 'cumulative-line',
         component: CumulativeLineComponent,
         data: {
@@ -53,13 +61,6 @@ const routes: Routes = [
         component: OhlcBarChartComponent,
         data: {
           title: 'OHLC'
-        }
-      },
-      {
-        path: 'line-plus-bar-chart',
-        component: LinePlusBarChartComponent,
-        data: {
-          title: 'Line Plus Bar Chart'
         }
       },
       {
